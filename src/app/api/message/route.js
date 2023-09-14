@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   readDB();
-  const room = DB.rooms.find((room) => room.roomId === roomId);
-  const roomId = request.nextUrl.searchParams.get("roomId");
 
+  const roomId = request.nextUrl.searchParams.get("roomId");
+  const room = DB.rooms.find((room) => room.roomId === roomId);
   if (!room) {
     return NextResponse.json(
       {
@@ -18,12 +18,10 @@ export const GET = async (request) => {
     );
   }
 
-  const ReturnMessage = DB.messages.filter(
-    (message) => message.roomId === roomId
-  );
+  const messages = DB.messages.filter((message) => message.roomId === roomId);
   return NextResponse.json({
     ok: true,
-    ReturnMessage,
+    messages,
   });
 };
 
@@ -58,7 +56,6 @@ export const POST = async (request) => {
     message: "Message has been sent",
   });
 };
-
 export const DELETE = async (request) => {
   const payload = checkToken();
 
