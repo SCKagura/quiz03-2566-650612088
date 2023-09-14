@@ -25,7 +25,7 @@ export const POST = async (request) => {
     role: user.role,
   };
 
-  const token = sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = sign(payload, process.env.JWT_SECRET);
 
   return NextResponse.json({ ok: true, token });
 };
